@@ -1,5 +1,5 @@
 import flet as ft
-from disigner import ButtonIcon, Designer, ProductCard
+from designer import ButtonIcon, Designer, ProductCard,SearchRow
 
 class search_main():
     def __init__(self, page:ft.Page):
@@ -10,13 +10,43 @@ class search_main():
             route="/search",
             controls=[
                 ft.Row(
-                    controls=[ft.Container(bgcolor="#000000",height=40, expand=True),]
+                    controls=[SearchRow()]
                 ),
-                ft.Column(
+                ft.Row(
                     expand=True,
+                    alignment=ft.MainAxisAlignment.CENTER,
                     controls=[
-                        ProductCard(),
-                        ProductCard(),
+                        ft.Column(
+                            expand=True,
+                            scroll=ft.ScrollMode.ADAPTIVE,
+                            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                            controls=[
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                                ProductCard(),
+                            ]
+                        ),
                     ]
                 ),
                 #ft.GridView(
@@ -34,11 +64,14 @@ class search_main():
                 ft.Row(
                     alignment=ft.MainAxisAlignment.CENTER,
                     controls=[
-                        ft.IconButton(icon=ft.icons.SEARCH_OUTLINED, icon_size=50, icon_color=Designer.colors[4]),
-                        ft.IconButton(icon=ft.icons.VIEW_COMPACT_ALT_OUTLINED, icon_size=50, icon_color=Designer.colors[4]),
-                        ft.IconButton(icon=ft.icons.MESSENGER, icon_size=50, icon_color=Designer.colors[4]),
-                        ft.IconButton(icon=ft.icons.ACCOUNT_BOX_ROUNDED, icon_size=50, icon_color=Designer.colors[4]),
+                        ft.IconButton(hover_color=Designer.colors[0], icon=ft.icons.SEARCH_OUTLINED, icon_size=45, icon_color=Designer.colors[4]),
+                        ft.IconButton(hover_color=Designer.colors[0], icon=ft.icons.VIEW_COMPACT_ALT_OUTLINED, icon_size=50, icon_color=Designer.colors[4]),
+                        ft.IconButton(hover_color=Designer.colors[0], icon=ft.icons.MESSENGER_OUTLINE_ROUNDED, icon_size=45, icon_color=Designer.colors[4]),
+                        ft.IconButton(hover_color=Designer.colors[0], icon=ft.icons.ACCOUNT_CIRCLE_OUTLINED, icon_size=45, icon_color=Designer.colors[4]),
                     ]
                 ),
             ]
         )
+        
+    def go_to_profile(self):
+        self.page.go("/prof")

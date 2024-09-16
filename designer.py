@@ -87,3 +87,31 @@ class ProductCard(ft.Container):
                 ]
             )
         )
+        
+class SearchRow(ft.Container):
+    def __init__(self):
+        super().__init__(
+            height=55,
+            expand=True,
+            border=ft.border.all(2,Designer.colors[4]),
+            border_radius=ft.border_radius.all(10),
+            content=ft.Row(
+                controls=[
+                    ft.IconButton(
+                        hover_color=Designer.colors[0],
+                        icon=ft.icons.SEARCH_OUTLINED,
+                        icon_size=40,
+                        icon_color=Designer.colors[4],
+                    ),
+                    ft.TextField(
+                        border=ft.InputBorder.NONE,
+                        expand=True,    
+                        cursor_color=Designer.colors[4],
+                        border_color=Designer.colors[4],
+                        color=Designer.colors[4],
+                        adaptive=True,
+                        text_size=24,
+                    ),
+                ]
+            )
+        )
