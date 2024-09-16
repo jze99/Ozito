@@ -7,17 +7,40 @@ class Designer():
             "#CBC5BF",
             "#F3F4F4",
             "#000000",
+            "#FFFFFF",
         ]
     
 class TextField(ft.TextField):
-    def __init__(self, password:bool=False, can_reveal_password:bool=False):
+    def __init__(self, password:bool=False, can_reveal_password:bool=False, value:str=""):
         super().__init__(
-            adaptive=True,
-            dense=True,
+            #adaptive=True,
+            #dense=True,
+            value=value,
+            text_size=18,
             password=password,
             can_reveal_password=can_reveal_password,
             width=180,
-            height=35,
+            #height=35,
+            cursor_color=Designer.colors[4],
+            border_color=Designer.colors[4],
+            color=Designer.colors[4],
+            #text_size=20,
+            #cursor_height = 18,
+            #fill_color=Designer.colors[4],
+            #focused_color=Designer.colors[4]
+        )
+class TextField2(ft.TextField):
+    def __init__(self, password:bool=False, can_reveal_password:bool=False, value:str=""):
+        super().__init__(
+            adaptive=True,
+            dense=True,
+            value=value,
+            expand=True,
+            text_size=18,
+            password=password,
+            can_reveal_password=can_reveal_password,
+            #width=180,
+            #height=35,
             cursor_color=Designer.colors[4],
             border_color=Designer.colors[4],
             color=Designer.colors[4],
@@ -44,6 +67,38 @@ class Button(ft.FilledTonalButton):
                 on_click=metod,
                 text=text,
                 style=ft.ButtonStyle(bgcolor=Designer.colors[0])
+            )
+            
+class ButtonBox(ft.FilledTonalButton):
+    def __init__(self, metod=None, text:str=None):
+        if metod == None:
+            super().__init__(
+                height=39,
+                width=156,
+                text=text,
+                style=ft.ButtonStyle(
+                    bgcolor=Designer.colors[0],
+                    shape=ft.RoundedRectangleBorder(radius=10),
+                    color=Designer.colors[4],
+                    text_style=ft.TextStyle(
+                        size=20,
+                    )
+                )
+            )
+        else:
+            super().__init__(
+                on_click=metod,
+                height=39,
+                width=156,
+                text=text,
+                style=ft.ButtonStyle(
+                    bgcolor=Designer.colors[0],
+                    shape=ft.RoundedRectangleBorder(radius=10),
+                    color=Designer.colors[4],
+                    text_style=ft.TextStyle(
+                        size=20,
+                    )
+                )
             )
 
 class ButtonIcon(ft.Container):
