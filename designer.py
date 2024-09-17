@@ -170,3 +170,14 @@ class SearchRow(ft.Container):
                 ]
             )
         )
+
+class OrderRow(ft.Row):
+    def __init__(self):
+        super().__init__(
+            controls=[
+                ft.Container(
+                    expand=True,
+                    bgcolor=Designer.colors[3],
+                )
+            ]
+        )

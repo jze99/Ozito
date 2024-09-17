@@ -10,6 +10,6 @@ def main(page: Page):
         page.update()
     page.on_route_change = PageLoading
     print(page.on_route_change)
-    page.go("/seting")
+    page.go("/my_orders")
     
 app(target=main, assets_dir="assets")

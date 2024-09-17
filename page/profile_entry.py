@@ -112,6 +112,7 @@ class profile():
                         ft.Container(#orders container
                             bgcolor=Designer.colors[3],
                             expand=True,
+                            on_click=self.go_to_my_orders,
                             padding=ft.padding.all(15),
                             content=ft.Column(
                                 controls=[
@@ -243,7 +244,8 @@ class profile():
                 )
             ]
         )
-    
+    def go_to_my_orders(self,e):
+        self.page.go("/my_orders")
     def go_to_search(self,e):
         self.page.go("/search")
     def go_to_seting(self,e):
