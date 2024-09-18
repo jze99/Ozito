@@ -1,6 +1,8 @@
 from flet import View,Page, ScrollMode
 from designer import Designer
-from page import login, profile_entry, registration, search_main, profile_no_entry, seting, my_orders
+from page import product_card,crate_order,order_page,login, profile_entry, registration, search_main, profile_no_entry, seting, my_orders
+
+
 
 def ViewsHendler(page):
     log = login.Login(page=page).page_view
@@ -11,6 +13,9 @@ def ViewsHendler(page):
     prof_no_entry = profile_no_entry.profile_no_entry(page=page).page_view
     seting_= seting.seting(page=page).page_view
     my_orders_= my_orders.my_order(page=page).page_view
+    order_page_view=order_page.order_page(page=page).page_view
+    create_order_ = crate_order.create_order_page(page=page).page_view 
+    product_card_=product_card.product_card(page=page).page_view
     return{
         "/":View(
             route="/",
@@ -59,6 +64,27 @@ def ViewsHendler(page):
             route="/my_orders",
             controls=[
                 my_orders_
+            ],
+            bgcolor=Designer.colors[2],
+        ),
+        "/order":View(
+            route="/order",
+            controls=[
+                order_page_view
+            ],
+            bgcolor=Designer.colors[2],
+        ),
+        "/new_order":View(
+            route="/new_order",
+            controls=[
+                create_order_
+            ],
+            bgcolor=Designer.colors[2],
+        ),
+        "/product":View(
+            route="/product",
+            controls=[
+                product_card_
             ],
             bgcolor=Designer.colors[2],
         ),

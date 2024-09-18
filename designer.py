@@ -114,6 +114,7 @@ class ButtonIcon(ft.Container):
 class ProductCard(ft.Container):
     def __init__(self, title:str="title", price:str="price"):
         super().__init__(
+            on_click=self.go_to_product_card,
             bgcolor=Designer.colors[3],
             content=ft.Column(
                 height=232,
@@ -142,6 +143,9 @@ class ProductCard(ft.Container):
                 ]
             )
         )
+        
+    def go_to_product_card(self,e):
+        self.page.go("/product")
         
 class SearchRow(ft.Container):
     def __init__(self):
@@ -172,12 +176,39 @@ class SearchRow(ft.Container):
         )
 
 class OrderRow(ft.Row):
-    def __init__(self):
+    def __init__(self, text:str=""):
+        self.text = text
         super().__init__(
             controls=[
                 ft.Container(
+                    on_click=self.go_to_order,
                     expand=True,
                     bgcolor=Designer.colors[3],
+                    border_radius=ft.border_radius.all(10),
+                    content=ft.Row(
+                        controls=[
+                            ft.Container(
+                                height=100,
+                                width=100,
+                                bgcolor=Designer.colors[0],
+                                margin=ft.margin.all(10),
+                                border_radius=ft.border_radius.all(10)
+                            ),
+                            ft.Container(
+                                expand=True,
+                                #bgcolor=Designer.colors[4],
+                                alignment=ft.alignment.center,
+                                content=ft.Text(
+                                    value=self.text,
+                                    size=22,
+                                    color=Designer.colors[4]
+                                )
+                            )
+                        ]
+                    )
                 )
             ]
         )
+    
+    def go_to_order(self,e):
+        self.page.go("/order")
