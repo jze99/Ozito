@@ -212,3 +212,14 @@ class OrderRow(ft.Row):
     
     def go_to_order(self,e):
         self.page.go("/order")
+        
+class massege_row(ft.Row):
+    def __init__(self, ):
+        super().__init__(
+            controls=[
+                ft.Container(
+                    bgcolor=Designer.colors[4],
+                    height=40,
+                )
+            ]
+        )        
