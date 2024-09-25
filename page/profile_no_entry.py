@@ -14,7 +14,7 @@ class profile_no_entry():
                     controls=[
                         ft.Text(
                             expand=True,
-                            value="Ozito is everything you need,\n right next to you!",
+                            value="Кузя is everything you need,\n right next to you!",
                             size=28,
                             color=Designer.colors[4],
                             text_align=ft.TextAlign.CENTER,
@@ -30,8 +30,12 @@ class profile_no_entry():
                             height=300,
                             expand=True,
                             alignment=ft.alignment.top_center,
-                            content=ft.Image(
-                               src="assets/images/Сочетание 8.svg",
+                            #content=ft.Image(
+                            #   src="assets/images/Сочетание 8.svg",
+                            #)
+                            content=ft.Text(
+                                value="Кузя",
+                                size=56
                             )
                         )
                     ]
@@ -40,7 +44,7 @@ class profile_no_entry():
                     controls=[
                         ft.Text(
                             expand=True,
-                            value="Log in or register to see all the\n advantages of Ozito",
+                            value="Log in or register to see all the\n advantages of Кузя",
                             size=24,
                             color=Designer.colors[4],
                             text_align=ft.TextAlign.CENTER,

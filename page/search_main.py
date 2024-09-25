@@ -52,4 +52,4 @@ class search_main():
         )
         
     def go_to_profile(self,e):
-        self.page.go("/log")
+        self.page.go("/prof_entry")

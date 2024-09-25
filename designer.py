@@ -2,8 +2,7 @@ import flet as ft
 
 class Designer():
     colors=[
-            "#881766"
-            #"#EF8A17",
+            "#881766",
             "#C4C4C4",
             "#CBC5BF",
             "#F3F4F4",
