@@ -53,7 +53,7 @@ def ViewsHendler(page):
             controls=[
                 prof_no_entry
             ],
-            bgcolor=Designer.colors[5],
+            bgcolor=Designer.colors[4],
         ),
         "/seting":View(
             route="/seting",
