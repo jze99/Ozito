@@ -1,11 +1,13 @@
 import flet as ft
 from designer import TextField, Designer, Button
 import requests
+import json
 class Registration:
     
     def __init__(self, page):
         self.page=page
         self.login_text = TextField()
+        self.email_text = TextField()
         self.password_text = TextField(password=True, can_reveal_password=True)
         self.conform_passw_text = TextField(password=True, can_reveal_password=True)
         self.phone_number_text = TextField()
@@ -62,6 +64,27 @@ class Registration:
                     alignment=ft.MainAxisAlignment.CENTER,
                     controls=[
                         self.login_text
+                    ]
+                ),
+                ft.Row(# email text
+                    width=180,
+                    alignment=ft.MainAxisAlignment.START,
+                    controls=[
+                        ft.Container(
+                            expand=True,
+                            #bgcolor="#000000",
+                            content=ft.Text(
+                                size=18,
+                                value="Email",
+                                color=Designer.colors[4]
+                            )
+                        ),  
+                    ]
+                ),
+                ft.Row(# email field
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    controls=[
+                        self.email_text
                     ]
                 ),
                 ft.Row(# password text
@@ -172,7 +195,16 @@ class Registration:
     def go_to_etry(self, e):
         log_temp=str(self.login_text.value)
         pass_temp=str(self.password_text.value)
-        temp = requests.post("http://31.31.196.6:8000/tasks/create_user?email="+log_temp+"&login="+log_temp+"&password="+pass_temp)
+        email_temp=str(self.email_text.value)
+        region_temp=str(self.region_text.value)
+        
+        user_check = requests.get("http://31.31.196.6:8000/ozito/check_user?login="+log_temp+"&password="+pass_temp)
+        user_js = json.loads(user_check.content)
+        if user_js['message'] == "Такого пользователя не существует":
+            temp = requests.post("http://31.31.196.6:8000/ozito/create_user?email="+email_temp+"&login="+log_temp+"&password="+ pass_temp +
+                             "&region="+region_temp+"&is_active=true&role=user")
+            self.page.go("/search")
+        
 
     def go_to_register(self,e):
         self.page.go("/log")

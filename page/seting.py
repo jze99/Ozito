@@ -1,6 +1,7 @@
 import flet as ft
-from designer import Designer, TextField
+from designer import Designer, TextField, Button
 from user_data import user_data_class
+import requests
 
 class seting():
     def __init__(self, page:ft.Page):
@@ -244,13 +245,7 @@ class seting():
                 ),
                 ft.Row(
                     controls=[
-                        ft.Container(
-                            expand=True,
-                            height=50,
-                            alignment=ft.alignment.center,
-                            bgcolor=Designer.colors[0],
-                            content=ft.Text(value="Save", size=22,color=Designer.colors[4])
-                        )
+                        Button(text="Save", metod=self.go_to_save)
                     ]
                 )
             ]
@@ -261,4 +256,24 @@ class seting():
     #def go_to_seting(self,e):
     #    self.page.go("/seting")
     def go_to_save(self,e):
-        pass
+        data = {"id" : str(user_data_class.id),
+                "email" : str(self.email_text.value),
+                "login" : str(self.name_text.value),
+                "password" : str(self.new_password_text.value),
+                "phone_number" : str(self.phone_number_text.value),
+                "region" : str(self.address_text.value),
+                "is_active" : True
+                }
+              
+        temp = requests.put("http://31.31.196.6:8000/ozito/update_user?id="+data["id"]+
+                            "&email="+data["email"]+"&login="+data["login"]+"&password="+data["password"]+
+                            "&phone_number="+data["phone_number"]+"&region="+data["region"]+"&is_active=true&role=user")
+        
+
+        user_data_class.name = data["login"]
+        user_data_class.password = data["password"]
+        user_data_class.phone_number = data["phone_number"]
+        user_data_class.address = data["region"]
+        user_data_class.email = data["email"]
+        
+        self.page.go("/prof_entry")

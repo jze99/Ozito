@@ -2,6 +2,7 @@ import flet as ft
 from designer import TextField, Designer, Button
 import requests
 import json
+from user_data import user_data_class
 class Login:
     
     def __init__(self, page):
@@ -100,13 +101,23 @@ class Login:
     def go_to_etry(self, e):
         log_temp=str(self.login_text.value)
         pass_temp=str(self.password_text.value)
-        temp = requests.get("http://31.31.196.6:8000/tasks/select_one_user?login="+log_temp+"&password="+pass_temp)
+        temp = requests.get("http://31.31.196.6:8000/ozito/check_user?login="+log_temp+"&password="+pass_temp)
         if temp.status_code != 200:
             return
         tepm_js = json.loads(temp.content)
         if tepm_js == 'Такого пользователя не существует':
             pass
         else:
+            print(tepm_js['data'][0]['login'])
+            user_data_class.id = tepm_js['data'][0]["id"]
+            user_data_class.name = tepm_js['data'][0]['login']
+            user_data_class.role = tepm_js['data'][0]['role']
+            user_data_class.password = tepm_js['data'][0]['password']
+            user_data_class.phone_number = tepm_js['data'][0]['phone_number']
+            user_data_class.address = tepm_js['data'][0]['region']
+            user_data_class.email = tepm_js['data'][0]['email']
+            user_data_class.rating = tepm_js['data'][0]['rating']
             self.page.go("/search")
+
     def go_to_register(self,e):
         self.page.go("/reg")
