@@ -1,15 +1,17 @@
-from flet import Page, app, AppView
-from view import ViewsHendler
+from fastapi import FastAPI
+from router import router
+from database import create_tables, delete_tables
 
-def main(page: Page):
 
-    def PageLoading(route):
-        print(page.route)
-        page.views.clear()
-        page.views.append(ViewsHendler(page=page)[page.route])
-        page.update()
-    page.on_route_change = PageLoading
-    print(page.on_route_change)
-    page.go("/prof_no_entry")
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await delete_tables()
+    await create_tables()
+    print("БД готова к работе")
+    yield
+    print("Выключение")
     
-app(target=main, assets_dir="assets")
+app = FastAPI(title="Ozito", lifespan=lifespan)
+app.include_router(router)
