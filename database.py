@@ -6,7 +6,7 @@ from sqlalchemy import String, Integer, ForeignKey, Float, Date, Boolean
 from datetime import date
 
 engine = create_async_engine(
-    "mysql+aiomysql://u2806602_jze9:iuahYQ3tDEdX33F@localhost/u2806602_ozito"
+    "sqlite+aiosqlite:///tasks.db"
 )
 
 
