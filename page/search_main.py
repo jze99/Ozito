@@ -1,5 +1,7 @@
 import flet as ft
 from designer import ButtonIcon, Designer, ProductCard,SearchRow
+import requests
+import json
 
 class search_main():
     def __init__(self, page:ft.Page):
@@ -21,9 +23,7 @@ class search_main():
                             expand=True,
                             scroll=ft.ScrollMode.ADAPTIVE,
                             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                            controls=[
-                                ProductCard(),
-                            ]
+                            controls= self.load_prods()
                         ),
                     ]
                 ),
@@ -50,6 +50,13 @@ class search_main():
                 ),
             ]
         )
+    def load_prods(self):
+        r = requests.get("http://31.31.196.6:8000/ozito/select_all_products")
+        prod_js = json.loads(r.content)
+        prods = []
+        for p in prod_js["data"]:
+            prods.append(ProductCard(p["product_id"], p["product_name"], p["price"]))
+        return prods
         
     def go_to_profile(self,e):
         self.page.go("/prof_entry")

@@ -1,6 +1,8 @@
 import flet as ft
 from designer import Designer,TextField
-import user_data
+from user_data import user_data_class as udc
+import requests
+import json
 
 class product_card():
     name_page = "order"
@@ -9,6 +11,7 @@ class product_card():
     Description_page = ""
     def __init__(self, page:ft.Page):
         self.page = page
+        self.prod = self.load_prod
         self.page_view=ft.Column(
             expand=True,
             controls=[
@@ -88,6 +91,13 @@ class product_card():
                 )
             ]
         )    
+    def load_prod(self):
+        r = requests.get("http://31.31.196.6:8000/ozito/select_all_products")
+        prod_js = json.loads(r.content)
 
+        for p in prod_js["data"]:
+            if p["product_id"] == udc.prod_id:
+                return p
+        #return prod
     def go_to_orders(self,e):
         self.page.go("/search")

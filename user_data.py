@@ -9,6 +9,7 @@ class user_data_class():
     count_orders = 123
     address = "/strit"
     email = "e-mail"
+    prod_id = 0
     
     @classmethod
     def test(cls):

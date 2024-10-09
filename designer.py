@@ -1,5 +1,6 @@
 import flet as ft
 
+
 class Designer():
     colors=[
             "#881766",
@@ -112,7 +113,10 @@ class ButtonIcon(ft.Container):
         )
         
 class ProductCard(ft.Container):
-    def __init__(self, title:str="title", price:str="price"):
+    def __init__(self, p_id : int, title:str="title", price:str="price"):
+        self.p_id = p_id
+        self.title = title
+        self.price = price
         super().__init__(
             on_click=self.go_to_product_card,
             bgcolor=Designer.colors[3],
@@ -145,6 +149,10 @@ class ProductCard(ft.Container):
         )
         
     def go_to_product_card(self,e):
+        from page.product_card import product_card
+        
+        product_card.name_page = self.title
+        product_card.price_page = self.price
         self.page.go("/product")
         
 class SearchRow(ft.Container):
