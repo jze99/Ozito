@@ -1,4 +1,6 @@
 import flet as ft
+import user_data
+
 
 class Designer():
     colors=[
@@ -111,8 +113,17 @@ class ButtonIcon(ft.Container):
             height=size,  
         )
         
+        
+
 class ProductCard(ft.Container):
-    def __init__(self, title:str="title", price:str="price"):
+    
+    def __init__(self,page : ft.Page, title:str="title", price:str="price", id : int = 0, desc : str = "desc"):
+        self.p_id = id
+        self.title = title
+        self.price = price
+        
+        self.desc = desc
+        self.page=page
         super().__init__(
             on_click=self.go_to_product_card,
             bgcolor=Designer.colors[3],
@@ -143,8 +154,20 @@ class ProductCard(ft.Container):
                 ]
             )
         )
+    def PageLoading(self, route):
+        self.page.views.clear()
+
+        self.temp.ViewsHendler(page=self.page)
+        self.page.views.append(self.temp.return_view()[self.page.route])
+        self.page.update()
         
     def go_to_product_card(self,e):
+        from view import temp 
+        from page.product_card import product_card
+
+        temp.row_view["/product"].controls =[ product_card(page=self.page, name = self.title, price= self.price, desc=self.desc ).page_view]
+        user_data.user_data_class.prod_id = self.p_id
+        self.PageLoading
         self.page.go("/product")
         
 class SearchRow(ft.Container):
