@@ -91,13 +91,5 @@ class product_card():
                 )
             ]
         )    
-    def load_prod(self):
-        r = requests.get("http://31.31.196.6:8000/ozito/select_all_products")
-        prod_js = json.loads(r.content)
-
-        for p in prod_js["data"]:
-            if p["product_id"] == udc.prod_id:
-                return p
-        #return prod
     def go_to_orders(self,e):
         self.page.go("/search")
