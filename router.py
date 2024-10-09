@@ -17,12 +17,12 @@ async def create_user(user : Annotated[SUserAdd, Depends()]):
     return {"ok" : True, "task_id" : created_user}
 
 @router.get("/check_user")
-async def check_user(login : str, password : str):
-    user = await UserRepository.check_user(login, password)
+async def check_user(login : str):
+    user = await UserRepository.check_user(login)
     if user:
         return {"message" : "Данный пользователь существует.", "data" : user}
     else:
-        return "Такого пользователя не существует"
+        return {"message" : "Данный пользователь не существует."}
     
 @router.put("/update_user")
 async def update_user(id : int, user : Annotated[SUserAdd, Depends()]):
