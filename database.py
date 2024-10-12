@@ -38,7 +38,6 @@ class ProductStatus(enum.Enum):
     recieved = "Получен"
     
 class ProductOrm(Model):
-    
     __tablename__ = "products"
     product_id : Mapped[int] = mapped_column(Integer, primary_key = True)
     product_name : Mapped[str] = mapped_column(String(50), nullable=False)
@@ -50,6 +49,7 @@ class ProductOrm(Model):
     buyer : Mapped["UserOrm"] = relationship("UserOrm", foreign_keys=[buyer_id])
     created_at : Mapped[date] = mapped_column(Date, default=date.today)
     status : Mapped[ProductStatus] = mapped_column(default=ProductStatus.listed)
+    category : Mapped[str] = mapped_column(String(50),  nullable = False)
 
 
 async def create_tables():

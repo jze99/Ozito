@@ -67,14 +67,15 @@ class ProductRepository:
     @classmethod
     async def update_product(cls, prod_id : int, data : SProductAdd):
         async with new_session() as session:
-            product = await session.get(ProductOrm, prod_id)
-            product.product_name = data.product_name
-            product.product_description = data.product_description
-            product.price = data.price
-            product.creator_id = data.creator_id
-            product.buyer_id = data.buyer_id
-            product.status = data.status
-            await session.refresh(product)
+            query = update(ProductOrm).values(
+                product_name = data.product_name,
+                product_description = data.product_description,
+                price = data.price,
+                creator_id = data.creator_id,
+                status = data.status,
+                buyer_id = data.buyer_id
+                ).where(ProductOrm.product_id == prod_id)
+            await session.execute(query)
             await session.commit()
             
             query2 = select(ProductOrm).where(ProductOrm.product_id == prod_id)

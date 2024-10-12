@@ -10,6 +10,7 @@ class SProductAdd(BaseModel):
     creator_id : int
     status: ProductStatus
     buyer_id : Optional[int] = None
+    category : str
 
 
 class SProduct(SProductAdd):
