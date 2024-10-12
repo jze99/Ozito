@@ -1,14 +1,19 @@
 import flet as ft
 from designer import Designer,TextField
 import user_data
+import requests
 
 class order_page():
+    p_id = 0
+    c_id = 0
     name_page = "order"
     price_page = 0
     Categorial_page = ""
     Description_page = ""
     def __init__(self, page:ft.Page):
         self.page = page
+        self.p_id = order_page.p_id
+        self.c_id = order_page.c_id
         self.name_order = TextField(value=order_page.name_page)
         self.price_order = TextField(value=order_page.price_page)
         self.Categorial_order = TextField(value=order_page.Categorial_page)
@@ -34,7 +39,8 @@ class order_page():
                             alignment=ft.alignment.center_right,
                             expand=True,
                             #bgcolor="#1529DD",
-                            content=ft.IconButton(hover_color=Designer.colors[0],icon=ft.icons.DELETE_ROUNDED,icon_size=35, icon_color=Designer.colors[4])
+                            content=ft.IconButton(hover_color=Designer.colors[0],icon=ft.icons.DELETE_ROUNDED,icon_size=35,
+                                                  icon_color=Designer.colors[4], on_click=self.delete_product)
                         ),
                     ]
                 ),
@@ -83,7 +89,7 @@ class order_page():
                 ft.Row(
                     controls=[
                         ft.Container(
-                            on_click=self.go_to_orders,
+                            on_click=self.save_product,
                             alignment=ft.alignment.center,
                             height=80,
                             bgcolor=Designer.colors[0],
@@ -97,7 +103,17 @@ class order_page():
                     ]
                 )
             ]
-        )    
-
+        )
+    def delete_product(self, e):
+        r = requests.delete("http://31.31.196.6:8000/ozito/delete_product?id="+str(self.p_id))
+        self.page.go("/my_orders")
+        
+    def save_product(self, e):
+        r = requests.put("http://31.31.196.6:8000/ozito/update_product?id="+str(self.p_id)+
+                         "&product_name="+self.name_order.value+"&product_description="+
+                         self.Description_order.value+"&price="+self.price_order.value+"&creator_id="+str(self.c_id)
+                         +"&status=%D0%92%D1%8B%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD")
+        self.page.go("/my_orders")
+    
     def go_to_orders(self,e):
         self.page.go("/my_orders")

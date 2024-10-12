@@ -1,6 +1,8 @@
 import flet as ft
 from designer import Designer,TextField
-import user_data
+from user_data import user_data_class as udc
+import requests
+#import json
 
 class create_order_page():
     def __init__(self, page:ft.Page):
@@ -81,7 +83,7 @@ class create_order_page():
                 ft.Row(
                     controls=[
                         ft.Container(
-                            on_click=self.go_to_orders,
+                            on_click=self.create_product,
                             alignment=ft.alignment.center,
                             height=80,
                             bgcolor=Designer.colors[0],
@@ -96,6 +98,15 @@ class create_order_page():
                 )
             ]
         )
+    def create_product(self, e):
+        p_name = self.name_order.value
+        p_desc = self.Description_order.value
+        p_price = self.price_order.value
+        c_id = str(udc.id)
+        r = requests.post("http://31.31.196.6:8000/ozito/create_product?product_name="+p_name+"&product_description="+
+                          p_desc+"&price="+p_price+"&creator_id="+c_id+"&status=%D0%92%D1%8B%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD")
+        self.page.go("/my_orders")
+        
         
     def go_to_orders(self,e):
         self.page.go("/my_orders")

@@ -55,7 +55,8 @@ class search_main():
         prod_js = json.loads(r.content)
         prods = []
         for p in prod_js["data"]:
-            prods.append(ProductCard(p["product_id"], p["product_name"], p["price"], p["product_description"]))
+            if p["status"] == "Выставлен":
+                prods.append(ProductCard(p["product_id"], p["product_name"], p["price"], p["product_description"]))
         return prods
         
     def go_to_profile(self,e):

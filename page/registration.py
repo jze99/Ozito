@@ -198,7 +198,7 @@ class Registration:
         email_temp=str(self.email_text.value)
         region_temp=str(self.region_text.value)
         
-        user_check = requests.get("http://31.31.196.6:8000/ozito/check_user?login="+log_temp+"&password="+pass_temp)
+        user_check = requests.get("http://31.31.196.6:8000/ozito/check_user?login="+log_temp)
         user_js = json.loads(user_check.content)
         if user_js["message"] == "Такого пользователя не существует":
             temp = requests.post("http://31.31.196.6:8000/ozito/create_user?email="+email_temp+"&login="+log_temp+"&password="+ pass_temp +

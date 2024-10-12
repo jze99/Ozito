@@ -11,7 +11,6 @@ class product_card():
     Description_page = ""
     def __init__(self, page:ft.Page):
         self.page = page
-        self.prod = self.load_prod
         self.page_view=ft.Column(
             expand=True,
             controls=[

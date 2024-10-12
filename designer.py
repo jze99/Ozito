@@ -186,8 +186,13 @@ class SearchRow(ft.Container):
         )
 
 class OrderRow(ft.Row):
-    def __init__(self, text:str=""):
-        self.text = text
+    
+    def __init__(self, p_id : int = 0, p_name : str = "", p_desc : str = "", p_price : int = 0, c_id : int = 0):
+        self.p_id = p_id
+        self.p_name = p_name
+        self.p_desc = p_desc
+        self.p_price = p_price
+        self.c_id = c_id
         super().__init__(
             controls=[
                 ft.Container(
@@ -209,7 +214,7 @@ class OrderRow(ft.Row):
                                 #bgcolor=Designer.colors[4],
                                 alignment=ft.alignment.center,
                                 content=ft.Text(
-                                    value=self.text,
+                                    value=self.p_name,
                                     size=22,
                                     color=Designer.colors[4]
                                 )
@@ -221,6 +226,12 @@ class OrderRow(ft.Row):
         )
     
     def go_to_order(self,e):
+        from page.order_page import order_page
+        order_page.p_id = self.p_id
+        order_page.name_page = self.p_name
+        order_page.Description_page = self.p_desc
+        order_page.price_page = self.p_price
+        order_page.c_id = self.c_id
         self.page.go("/order")
         
 class massege_row(ft.Row):

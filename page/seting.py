@@ -264,16 +264,22 @@ class seting():
                 "region" : str(self.address_text.value),
                 "is_active" : True
                 }
-              
-        temp = requests.put("http://31.31.196.6:8000/ozito/update_user?id="+data["id"]+
+        
+        r = requests.get("http://31.31.196.6:8000/ozito/check_user?login="+data["login"])
+        check = r.json()
+        
+        if check["message"] == 'Данный пользователь существует.':
+            pass
+        else:
+            temp = requests.put("http://31.31.196.6:8000/ozito/update_user?id="+data["id"]+
                             "&email="+data["email"]+"&login="+data["login"]+"&password="+data["password"]+
                             "&phone_number="+data["phone_number"]+"&region="+data["region"]+"&is_active=true&role=user")
         
 
-        user_data_class.name = data["login"]
-        user_data_class.password = data["password"]
-        user_data_class.phone_number = data["phone_number"]
-        user_data_class.address = data["region"]
-        user_data_class.email = data["email"]
+            user_data_class.name = data["login"]
+            user_data_class.password = data["password"]
+            user_data_class.phone_number = data["phone_number"]
+            user_data_class.address = data["region"]
+            user_data_class.email = data["email"]
         
-        self.page.go("/prof_entry")
+            self.page.go("/prof_entry")

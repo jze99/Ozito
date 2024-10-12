@@ -1,9 +1,11 @@
 import flet as ft
 from designer import Designer
 from user_data import user_data_class
+import requests
 
 class profile():
     def __init__(self, page:ft.Page):
+        self.count = 0
         self.page = page
         self.page_view=ft.Column(
             expand=True,
@@ -138,7 +140,7 @@ class profile():
                                                 color=Designer.colors[4]
                                             ),
                                             ft.Text(
-                                                value=user_data_class.count_orders,
+                                                value=self.user_order_count(),
                                                 size=22,
                                                 color=Designer.colors[4]
                                             ),
@@ -244,6 +246,16 @@ class profile():
                 )
             ]
         )
+    def user_order_count(self):
+        count = 0
+        r = requests.get("http://31.31.196.6:8000/ozito/select_all_products")
+        prod_js = r.json()
+        prods = []
+        for p in prod_js["data"]:
+            if p["creator_id"] == user_data_class.id:
+                count += 1
+        return count
+        
     def go_to_my_orders(self,e):
         self.page.go("/my_orders")
     def go_to_search(self,e):

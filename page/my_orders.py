@@ -1,5 +1,7 @@
 import flet as ft
 from designer import Designer,OrderRow
+import requests
+from user_data import user_data_class as udc
 
 class my_order():
     def __init__(self, page:ft.Page):
@@ -9,9 +11,7 @@ class my_order():
             expand=True,
             scroll=ft.ScrollMode.ADAPTIVE,
             alignment=ft.MainAxisAlignment.START,
-            controls=[
-                OrderRow(text="my order"),
-            ]
+            controls= self.load_user_products()
         )
         self.page_view=ft.Column(
             expand=True,
@@ -63,6 +63,14 @@ class my_order():
                 )
             ]
         )
+    def load_user_products(self):
+        r = requests.get("http://31.31.196.6:8000/ozito/select_all_products")
+        prod_js = r.json()
+        prods = []
+        for p in prod_js["data"]:
+            if p["creator_id"] == udc.id:
+                prods.append(OrderRow(p["product_id"], p["product_name"], p["product_description"], p["price"], p["creator_id"]))
+        return prods
         
     def go_to_create_order(self,e):
         self.page.go("/new_order")
