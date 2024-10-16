@@ -58,7 +58,7 @@ class profile_no_entry():
                 ft.Row(
                     alignment=ft.MainAxisAlignment.CENTER,
                     controls=[
-                        ButtonBox(text="Enter", metod=self.go_to_enter)
+                        ButtonBox(text="Log in", metod=self.go_to_enter)
                     ]
                 ),
                 ft.Row(

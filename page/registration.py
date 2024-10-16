@@ -2,6 +2,8 @@ import flet as ft
 from designer import TextField, Designer, Button
 import requests
 import json
+from user_data import user_data_class as udc
+
 class Registration:
     
     def __init__(self, page):
@@ -54,7 +56,7 @@ class Registration:
                             #bgcolor="#000000",
                             content=ft.Text(
                                 size=18,
-                                value="Name",
+                                value="Login",
                                 color=Designer.colors[4]
                             )
                         ),  
@@ -75,7 +77,7 @@ class Registration:
                             #bgcolor="#000000",
                             content=ft.Text(
                                 size=18,
-                                value="Email",
+                                value="E-mail",
                                 color=Designer.colors[4]
                             )
                         ),  
@@ -117,7 +119,7 @@ class Registration:
                             #bgcolor="#000000",
                             content=ft.Text(
                                 size=16,
-                                value="Conform the password",
+                                value="Confirm the password",
                                 color=Designer.colors[4]
                             )
                         ),  
@@ -177,13 +179,13 @@ class Registration:
                 ft.Row(
                     alignment=ft.MainAxisAlignment.CENTER,
                     controls=[
-                        Button(text="Entry", metod=self.go_to_etry)
+                        Button(text="Register", metod=self.go_to_etry)
                     ]
                 ),
                 ft.Row(
                     alignment=ft.MainAxisAlignment.CENTER,
                     controls=[
-                        Button(text="Authorization", metod=self.go_to_register)
+                        Button(text="Log in", metod=self.go_to_register)
                     ]
                 ),
                 ft.Row(
@@ -195,15 +197,43 @@ class Registration:
     def go_to_etry(self, e):
         log_temp=str(self.login_text.value)
         pass_temp=str(self.password_text.value)
+        conpass_temp = str(self.conform_passw_text.value)
+        phone_temp = str(self.phone_number_text.value)
         email_temp=str(self.email_text.value)
         region_temp=str(self.region_text.value)
         
+        
         user_check = requests.get("http://31.31.196.6:8000/ozito/check_user?login="+log_temp)
         user_js = json.loads(user_check.content)
-        if user_js["message"] == "Такого пользователя не существует":
-            temp = requests.post("http://31.31.196.6:8000/ozito/create_user?email="+email_temp+"&login="+log_temp+"&password="+ pass_temp +
-                             "&region="+region_temp+"&is_active=true&role=user")
-            self.page.go("/search")
+        
+        if log_temp != "" and email_temp != "" and pass_temp != "" and phone_temp != "" and region_temp != "":
+            if user_js['message'] == 'Данный пользователь не существует.':
+                if phone_temp.isnumeric():
+                    if conpass_temp == pass_temp: 
+                        temp = requests.post("http://31.31.196.6:8000/ozito/create_user?email="+email_temp+
+                                             "&login="+log_temp+"&password="+pass_temp+"&phone_number="+phone_temp+
+                                             "&region="+region_temp+"&is_active=true&role=user")
+                        
+                        temp_js = temp.json()
+                        
+                        udc.id = temp_js['task_id']['data']['id']
+                        udc.name = temp_js['task_id']['data']['login']
+                        udc.email = temp_js['task_id']['data']['email']
+                        udc.role = temp_js['task_id']['data']['role']
+                        udc.password = temp_js['task_id']['data']['password']
+                        udc.phone_number = temp_js['task_id']['data']['phone_number']
+                        udc.address = temp_js['task_id']['data']['region']
+                        udc.rating = temp_js['task_id']['data']['rating']
+
+                        self.page.go("/search")
+                    else:
+                        pass
+                else:
+                    pass
+            else:
+                pass
+        else:
+            pass
         
 
     def go_to_register(self,e):

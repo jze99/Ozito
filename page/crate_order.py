@@ -66,7 +66,7 @@ class create_order_page():
                                 ),
                                 ft.Row(
                                     controls=[
-                                        ft.Text(value="Categorical:", size=22,color=Designer.colors[4]),
+                                        ft.Text(value="Category:", size=22,color=Designer.colors[4]),
                                         self.Categorial_order
                                     ]
                                 ),
@@ -102,10 +102,22 @@ class create_order_page():
         p_name = self.name_order.value
         p_desc = self.Description_order.value
         p_price = self.price_order.value
+        p_category = self.Categorial_order.value
         c_id = str(udc.id)
-        r = requests.post("http://31.31.196.6:8000/ozito/create_product?product_name="+p_name+"&product_description="+
-                          p_desc+"&price="+p_price+"&creator_id="+c_id+"&status=%D0%92%D1%8B%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD")
-        self.page.go("/my_orders")
+        
+        if p_name != "" and p_name != "" and p_name != "" and p_name != "":
+            if p_price.isnumeric():
+                r = requests.post("http://31.31.196.6:8000/ozito/create_product?product_name="+p_name+
+                                "&product_description="+p_desc+"&price="+p_price+
+                                "&creator_id="+c_id+"&status=%D0%92%D1%8B%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD&category="+p_category)
+                
+                self.page.go("/my_orders")
+            else:
+                pass
+        else:
+            pass
+        
+        
         
         
     def go_to_orders(self,e):

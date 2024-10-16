@@ -51,7 +51,7 @@ class profile():
                                     ft.Row(
                                         controls=[
                                             ft.Text(
-                                                value="name:",
+                                                value="Login:",
                                                 color=Designer.colors[4],
                                                 size=22,
                                             ),
@@ -65,7 +65,7 @@ class profile():
                                     ft.Row(
                                         controls=[
                                             ft.Text(
-                                                value="role:",
+                                                value="Role:",
                                                 color=Designer.colors[4],
                                                 size=22,
                                             ),
@@ -135,7 +135,7 @@ class profile():
                                                 color=Designer.colors[4],
                                             ),
                                             ft.Text(
-                                                value="You orders:",
+                                                value="Your orders:",
                                                 size=22,
                                                 color=Designer.colors[4]
                                             ),
@@ -176,7 +176,7 @@ class profile():
                                                 color=Designer.colors[4],
                                             ),
                                             ft.Text(
-                                                value="You address:",
+                                                value="Your address:",
                                                 size=22,
                                                 color=Designer.colors[4]
                                             ),
@@ -217,7 +217,7 @@ class profile():
                                                 color=Designer.colors[4],
                                             ),
                                             ft.Text(
-                                                value="You E-mail:",
+                                                value="Your E-mail:",
                                                 size=22,
                                                 color=Designer.colors[4]
                                             ),
@@ -240,7 +240,8 @@ class profile():
                             height=50,
                             alignment=ft.alignment.center,
                             bgcolor=Designer.colors[0],
-                            content=ft.Text(value="Exit", size=22,color=Designer.colors[4])
+                            content=ft.Text(value="Log out", size=22,color=Designer.colors[4]),
+                            on_click=self.logout
                         )
                     ]
                 )
@@ -250,7 +251,6 @@ class profile():
         count = 0
         r = requests.get("http://31.31.196.6:8000/ozito/select_all_products")
         prod_js = r.json()
-        prods = []
         for p in prod_js["data"]:
             if p["creator_id"] == user_data_class.id:
                 count += 1
@@ -262,3 +262,6 @@ class profile():
         self.page.go("/search")
     def go_to_seting(self,e):
         self.page.go("/seting")
+    
+    def logout(self, e):
+        self.page.go("/prof_no_entry")

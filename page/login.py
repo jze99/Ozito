@@ -27,7 +27,7 @@ class Login:
                     controls=[
                         ft.Text(
                             size=36,
-                            value="Login",
+                            value="Log in",
                             color="#000000"
                         )
                     ]
@@ -48,7 +48,7 @@ class Login:
                     controls=[
                         ft.Text(
                             size=24,
-                            value="Name",
+                            value="Login",
                             color=Designer.colors[4]
                         )
                     ]
@@ -85,14 +85,14 @@ class Login:
                     width=180,
                     alignment=ft.MainAxisAlignment.CENTER,
                     controls=[
-                        Button(text="Entry", metod=self.go_to_etry)
+                        Button(text="Log in", metod=self.go_to_etry)
                     ]
                 ),
                 ft.Row(
                     width=180,
                     alignment=ft.MainAxisAlignment.CENTER,
                     controls=[
-                        Button(text="Registr", metod=self.go_to_register)
+                        Button(text="Registration", metod=self.go_to_register)
                     ]
                 )
             ]
@@ -107,7 +107,6 @@ class Login:
         tepm_js = json.loads(temp.content)
         if tepm_js["message"] == 'Данный пользователь существует.':
             if tepm_js["data"][0]["password"] == pass_temp:
-                print(tepm_js['data'][0]['login'])
                 user_data_class.id = tepm_js['data'][0]["id"]
                 user_data_class.name = tepm_js['data'][0]['login']
                 user_data_class.role = tepm_js['data'][0]['role']
