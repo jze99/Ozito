@@ -53,12 +53,12 @@ class product_card():
                                 ft.Row(
                                     controls=[
                                         ft.Text(value="Price:", size=22,color=Designer.colors[4]),
-                                        ft.Text(value=product_card.price_page, size=22,color=Designer.colors[4]),
+                                        ft.Text(value=str(product_card.price_page) + " RUB.", size=22,color=Designer.colors[4]),
                                     ]
                                 ),
                                 ft.Row(
                                     controls=[
-                                        ft.Text(value="Categorical:", size=22,color=Designer.colors[4]),
+                                        ft.Text(value="Category:", size=22,color=Designer.colors[4]),
                                         ft.Text(value=product_card.Categorial_page, size=22,color=Designer.colors[4]),
                                     ]
                                 ),

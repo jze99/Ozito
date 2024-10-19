@@ -114,11 +114,12 @@ class ButtonIcon(ft.Container):
         )
 
 class ProductCard(ft.Container):
-    def __init__(self, p_id : int, title:str="title", price:str="price", desc : str = "desc"):
+    def __init__(self, p_id : int, title:str="title", price:str="price", desc : str = "desc", category : str = "cat"):
         self.p_id = p_id
         self.title = title
         self.price = price
         self.desc = desc
+        self.category = category
         super().__init__(
             on_click=self.go_to_product_card,
             bgcolor=Designer.colors[3],
@@ -144,7 +145,7 @@ class ProductCard(ft.Container):
                         controls=[ft.Container(width=5), ft.Text(value=title, color="#000000", size=22)]
                     ),
                     ft.Row(
-                        controls=[ft.Container(width=5), ft.Text(value=price, color="#000000", size=22)]
+                        controls=[ft.Container(width=5), ft.Text(value=str(price)+" RUB.", color="#000000", size=22)]
                     ),
                 ]
             )
@@ -156,6 +157,7 @@ class ProductCard(ft.Container):
         product_card.name_page = self.title
         product_card.price_page = self.price
         product_card.Description_page = self.desc
+        product_card.Categorial_page = self.category
         self.page.go("/product")
         
 class SearchRow(ft.Container):
