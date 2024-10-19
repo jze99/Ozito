@@ -10,6 +10,7 @@ class order_page():
     price_page = 0
     Categorial_page = ""
     Description_page = ""
+    status_page = ""
     def __init__(self, page:ft.Page):
         self.page = page
         self.p_id = order_page.p_id
@@ -18,6 +19,7 @@ class order_page():
         self.price_order = TextField(value=order_page.price_page)
         self.Categorial_order = TextField(value=order_page.Categorial_page)
         self.Description_order = TextField(value=order_page.Description_page)
+        self.status_order = order_page.status_page
         self.page_view=ft.Column(
             expand=True,
             controls=[
@@ -60,7 +62,7 @@ class order_page():
                                 ),
                                 ft.Row(
                                     controls=[
-                                        ft.Text(value="name:", size=22,color=Designer.colors[4]),
+                                        ft.Text(value="Name:", size=22,color=Designer.colors[4]),
                                         self.name_order
                                     ]
                                 ),
@@ -72,7 +74,7 @@ class order_page():
                                 ),
                                 ft.Row(
                                     controls=[
-                                        ft.Text(value="Categorical:", size=22,color=Designer.colors[4]),
+                                        ft.Text(value="Category:", size=22,color=Designer.colors[4]),
                                         self.Categorial_order
                                     ]
                                 ),
@@ -105,15 +107,27 @@ class order_page():
             ]
         )
     def delete_product(self, e):
-        r = requests.delete("http://31.31.196.6:8000/ozito/delete_product?id="+str(self.p_id))
-        self.page.go("/my_orders")
+        if self.status_order == "Выставлен":
+            r = requests.delete("http://31.31.196.6:8000/ozito/delete_product?id="+str(self.p_id))
+            self.page.go("/my_orders")
+        else:
+            pass
         
     def save_product(self, e):
-        r = requests.put("http://31.31.196.6:8000/ozito/update_product?id="+str(self.p_id)+
-                         "&product_name="+self.name_order.value+"&product_description="+
-                         self.Description_order.value+"&price="+self.price_order.value+"&creator_id="+str(self.c_id)
-                         +"&status=%D0%92%D1%8B%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD")
-        self.page.go("/my_orders")
+        if self.status_order ==  "Выставлен":
+            if self.name_order.value != "" and self.price_order.value != "" and self.Categorial_order.value != "" and self.Description_order.value != "":
+                if self.price_order.value.isnumeric():
+                    r = requests.put("http://31.31.196.6:8000/ozito/update_product?id="+str(self.p_id)+
+                            "&product_name="+self.name_order.value+"&product_description="+
+                            self.Description_order.value+"&price="+self.price_order.value+"&creator_id="+str(self.c_id)
+                            +"&status=%D0%92%D1%8B%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD&category="+self.Categorial_order)
+                    self.page.go("/my_orders")
+                else:
+                    pass
+            else:
+                pass
+        else:
+            pass
     
     def go_to_orders(self,e):
         self.page.go("/my_orders")

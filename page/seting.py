@@ -58,7 +58,7 @@ class seting():
                                     ft.Row(
                                         controls=[
                                             ft.Text(
-                                                value="name:",
+                                                value="Name:",
                                                 color=Designer.colors[4],
                                                 size=22,
                                             ),
@@ -116,7 +116,7 @@ class seting():
                                         expand=True,
                                         controls=[
                                             ft.Text(
-                                                value="confirm:",
+                                                value="Confirm:",
                                                 color=Designer.colors[4],
                                                 size=22,
                                             ),
@@ -194,7 +194,7 @@ class seting():
                                                 color=Designer.colors[4],
                                             ),
                                             ft.Text(
-                                                value="You address:",
+                                                value="Your address:",
                                                 size=22,
                                                 color=Designer.colors[4]
                                             ),
@@ -231,7 +231,7 @@ class seting():
                                                 color=Designer.colors[4],
                                             ),
                                             ft.Text(
-                                                value="You E-mail:",
+                                                value="Your E-mail:",
                                                 size=22,
                                                 color=Designer.colors[4]
                                             ),
@@ -271,15 +271,20 @@ class seting():
         if check["message"] == 'Данный пользователь существует.':
             pass
         else:
-            temp = requests.put("http://31.31.196.6:8000/ozito/update_user?id="+data["id"]+
-                            "&email="+data["email"]+"&login="+data["login"]+"&password="+data["password"]+
-                            "&phone_number="+data["phone_number"]+"&region="+data["region"]+"&is_active=true&role=user")
+            if data["email"] != "" and data["login"] != "" and data["password"] != "" and (data["phone_number"] != "" and str(data["phone_number"]).isnumeric()) and data["region"] != "":
+                if self.confirm_the_password_text.value == data["password"]:
+                    temp = requests.put("http://31.31.196.6:8000/ozito/update_user?id="+data["id"]+
+                                "&email="+data["email"]+"&login="+data["login"]+"&password="+data["password"]+
+                                "&phone_number="+data["phone_number"]+"&region="+data["region"]+"&is_active=true&role=user")
+                    
+                    user_data_class.name = data["login"]
+                    user_data_class.password = data["password"]
+                    user_data_class.phone_number = data["phone_number"]
+                    user_data_class.address = data["region"]
+                    user_data_class.email = data["email"]
         
-
-            user_data_class.name = data["login"]
-            user_data_class.password = data["password"]
-            user_data_class.phone_number = data["phone_number"]
-            user_data_class.address = data["region"]
-            user_data_class.email = data["email"]
-        
-            self.page.go("/prof_entry")
+                    self.page.go("/prof_entry")
+                else:
+                    pass
+            else:
+                pass

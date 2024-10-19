@@ -69,7 +69,8 @@ class my_order():
         prods = []
         for p in prod_js["data"]:
             if p["creator_id"] == udc.id:
-                prods.append(OrderRow(p["product_id"], p["product_name"], p["product_description"], p["price"], p["creator_id"]))
+                prods.append(OrderRow(p["product_id"], p["product_name"], p["product_description"], p["price"], p["creator_id"], p["category"],
+                                      p["status"]))
         return prods
         
     def go_to_create_order(self,e):

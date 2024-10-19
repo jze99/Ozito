@@ -2,6 +2,7 @@ import flet as ft
 from designer import ButtonIcon, Designer, ProductCard,SearchRow
 import requests
 import json
+from user_data import user_data_class as udc
 
 class search_main():
     def __init__(self, page:ft.Page):
@@ -55,7 +56,7 @@ class search_main():
         prod_js = json.loads(r.content)
         prods = []
         for p in prod_js["data"]:
-            if p["status"] == "Выставлен":
+            if p["status"] == "Выставлен" and p["creator_id"] != udc.id:
                 prods.append(ProductCard(p["product_id"], p["product_name"], p["price"], p["product_description"]))
         return prods
         

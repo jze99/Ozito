@@ -187,12 +187,15 @@ class SearchRow(ft.Container):
 
 class OrderRow(ft.Row):
     
-    def __init__(self, p_id : int = 0, p_name : str = "", p_desc : str = "", p_price : int = 0, c_id : int = 0):
+    def __init__(self, p_id : int = 0, p_name : str = "", p_desc : str = "", p_price : int = 0, c_id : int = 0, p_category : str = "",
+                 p_status : str = ""):
         self.p_id = p_id
         self.p_name = p_name
         self.p_desc = p_desc
         self.p_price = p_price
         self.c_id = c_id
+        self.p_category = p_category
+        self.p_status = p_status
         super().__init__(
             controls=[
                 ft.Container(
@@ -232,6 +235,8 @@ class OrderRow(ft.Row):
         order_page.Description_page = self.p_desc
         order_page.price_page = self.p_price
         order_page.c_id = self.c_id
+        order_page.Categorial_page = self.p_category
+        order_page.status_page = self.p_status
         self.page.go("/order")
         
 class massege_row(ft.Row):
