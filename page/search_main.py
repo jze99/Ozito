@@ -7,25 +7,28 @@ from user_data import user_data_class as udc
 class search_main():
     def __init__(self, page:ft.Page):
         self.page = page
+        self.search = SearchRow(on_click_method=self.update_pages)
+        self.temp=[]
+        self.column_shop=ft.Column(
+                            expand=True,
+                            scroll=ft.ScrollMode.ADAPTIVE,
+                            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                            controls=self.load_prods()
+                        )
         
         self.page_view = ft.View(
             bgcolor=Designer.colors[1],
             route="/search",
             controls=[
                 ft.Row(
-                    controls=[SearchRow()]
+                    controls=[self.search]
                 ),
                 ft.Row(
                     expand=True,
                     alignment=ft.MainAxisAlignment.CENTER,
                     vertical_alignment=ft.CrossAxisAlignment.START,
                     controls=[
-                        ft.Column(
-                            expand=True,
-                            scroll=ft.ScrollMode.ADAPTIVE,
-                            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                            controls= self.load_prods()
-                        ),
+                        self.column_shop
                     ]
                 ),
                 #ft.GridView(
@@ -55,10 +58,18 @@ class search_main():
         r = requests.get("http://31.31.196.6:8000/ozito/select_all_products")
         prod_js = json.loads(r.content)
         prods = []
+        temp = self.search.return_text_field()
         for p in prod_js["data"]:
             if p["status"] == "Выставлен" and p["creator_id"] != udc.id:
-                prods.append(ProductCard(p["product_id"], p["product_name"], p["price"], p["product_description"]))
+                if temp == "":
+                    prods.append(ProductCard(p["product_id"], p["product_name"], p["price"], p["product_description"]))
+                elif temp in p["product_name"]:
+                    prods.append(ProductCard(p["product_id"], p["product_name"], p["price"], p["product_description"]))
         return prods
+        
+    def update_pages(self,e):
+        self.column_shop.controls = self.load_prods()
+        self.column_shop.update()
         
     def go_to_profile(self,e):
         self.page.go("/prof_entry")

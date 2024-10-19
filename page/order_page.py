@@ -1,5 +1,5 @@
 import flet as ft
-from designer import Designer,TextField
+from designer import Designer,TextField, dialog
 import user_data
 import requests
 
@@ -111,7 +111,7 @@ class order_page():
             r = requests.delete("http://31.31.196.6:8000/ozito/delete_product?id="+str(self.p_id))
             self.page.go("/my_orders")
         else:
-            pass
+            self.page.open(dialog(text="Order can't be deleted since it was bought."))
         
     def save_product(self, e):
         if self.status_order ==  "Выставлен":
@@ -123,11 +123,11 @@ class order_page():
                             +"&status=%D0%92%D1%8B%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD&category="+self.Categorial_order)
                     self.page.go("/my_orders")
                 else:
-                    pass
+                    self.page.open(dialog(text="Price must consist of digits."))
             else:
-                pass
+                self.page.open(dialog(text="All fields must be filled."))
         else:
-            pass
+            self.page.open(dialog(text="Order can't be updated since it was bought."))
     
     def go_to_orders(self,e):
         self.page.go("/my_orders")

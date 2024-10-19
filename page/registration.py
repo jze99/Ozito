@@ -1,5 +1,5 @@
 import flet as ft
-from designer import TextField, Designer, Button
+from designer import TextField, Designer, Button, dialog
 import requests
 import json
 from user_data import user_data_class as udc
@@ -227,13 +227,13 @@ class Registration:
 
                         self.page.go("/search")
                     else:
-                        pass
+                        self.page.open(dialog(text="Confirm the password."))
                 else:
-                    pass
+                    self.page.open(dialog(text="Phone number must consist from digits."))
             else:
-                pass
+                self.page.open(dialog(text="Such user already exists."))
         else:
-            pass
+            self.page.open(dialog(text="All fields must be filled."))
         
 
     def go_to_register(self,e):

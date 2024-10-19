@@ -1,5 +1,5 @@
 import flet as ft
-from designer import TextField, Designer, Button
+from designer import TextField, Designer, Button, dialog
 import requests
 import json
 from user_data import user_data_class
@@ -9,6 +9,7 @@ class Login:
         self.page=page
         self.login_text = TextField()
         self.password_text = TextField(password=True, can_reveal_password=True)
+        
         self.page_view = ft.Column(
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             scroll=ft.ScrollMode.ADAPTIVE,
@@ -99,6 +100,7 @@ class Login:
         )
     
     def go_to_etry(self, e):
+        
         log_temp=str(self.login_text.value)
         pass_temp=str(self.password_text.value)
         temp = requests.get("http://31.31.196.6:8000/ozito/check_user?login="+log_temp)
@@ -117,9 +119,9 @@ class Login:
                 user_data_class.rating = tepm_js['data'][0]['rating']
                 self.page.go("/search")
             else:
-                pass
+                self.page.open(dialog(text="The password is incorrect."))
         else:
-            pass
+            self.page.open(dialog(text="There is no such user."))
 
     def go_to_register(self,e):
         self.page.go("/reg")

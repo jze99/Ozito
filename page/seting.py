@@ -1,5 +1,5 @@
 import flet as ft
-from designer import Designer, TextField, Button
+from designer import Designer, TextField, Button, dialog
 from user_data import user_data_class
 import requests
 
@@ -58,7 +58,7 @@ class seting():
                                     ft.Row(
                                         controls=[
                                             ft.Text(
-                                                value="Name:",
+                                                value="Login:",
                                                 color=Designer.colors[4],
                                                 size=22,
                                             ),
@@ -255,7 +255,7 @@ class seting():
         self.page.go("/prof_entry")
     #def go_to_seting(self,e):
     #    self.page.go("/seting")
-    def go_to_save(self,e):
+    def go_to_save(self,e): 
         data = {"id" : str(user_data_class.id),
                 "email" : str(self.email_text.value),
                 "login" : str(self.name_text.value),
@@ -268,23 +268,27 @@ class seting():
         r = requests.get("http://31.31.196.6:8000/ozito/check_user?login="+data["login"])
         check = r.json()
         
-        if check["message"] == 'Данный пользователь существует.':
-            pass
+        if check["message"] == 'Данный пользователь существует.' and check["data"][0]["login"] != user_data_class.name:
+            self.page.open(dialog(text="An user with such login already exists."))  
         else:
             if data["email"] != "" and data["login"] != "" and data["password"] != "" and (data["phone_number"] != "" and str(data["phone_number"]).isnumeric()) and data["region"] != "":
-                if self.confirm_the_password_text.value == data["password"]:
-                    temp = requests.put("http://31.31.196.6:8000/ozito/update_user?id="+data["id"]+
-                                "&email="+data["email"]+"&login="+data["login"]+"&password="+data["password"]+
-                                "&phone_number="+data["phone_number"]+"&region="+data["region"]+"&is_active=true&role=user")
+                if self.current_password_text.value == user_data_class.password:
+                    if self.confirm_the_password_text.value == data["password"]:
+                        temp = requests.put("http://31.31.196.6:8000/ozito/update_user?id="+data["id"]+
+                                    "&email="+data["email"]+"&login="+data["login"]+"&password="+data["password"]+
+                                    "&phone_number="+data["phone_number"]+"&region="+data["region"]+"&is_active=true&role=user")
                     
-                    user_data_class.name = data["login"]
-                    user_data_class.password = data["password"]
-                    user_data_class.phone_number = data["phone_number"]
-                    user_data_class.address = data["region"]
-                    user_data_class.email = data["email"]
+                        user_data_class.name = data["login"]
+                        user_data_class.password = data["password"]
+                        user_data_class.phone_number = data["phone_number"]
+                        user_data_class.address = data["region"]
+                        user_data_class.email = data["email"]
         
-                    self.page.go("/prof_entry")
+                        self.page.go("/prof_entry")
+                    else:
+                        self.page.open(dialog(text="Confirm the new password."))
                 else:
-                    pass
+                    self.page.open(dialog(text="Confirm the current password to change it."))    
             else:
-                pass
+                self.page.open(dialog(text="All fields must be filled."))  
+                  

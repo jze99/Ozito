@@ -1,5 +1,5 @@
 import flet as ft
-from designer import Designer,TextField
+from designer import Designer,TextField, dialog
 from user_data import user_data_class as udc
 import requests
 #import json
@@ -54,7 +54,7 @@ class create_order_page():
                                 ),
                                 ft.Row(
                                     controls=[
-                                        ft.Text(value="name:", size=22,color=Designer.colors[4]),
+                                        ft.Text(value="Name:", size=22,color=Designer.colors[4]),
                                         self.name_order
                                     ]
                                 ),
@@ -113,9 +113,9 @@ class create_order_page():
                 
                 self.page.go("/my_orders")
             else:
-                pass
+                self.page.open(dialog(text="Price must consist of digits."))
         else:
-            pass
+            self.page.open(dialog(text="All fields must be filled."))
         
         
         

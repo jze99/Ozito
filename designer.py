@@ -1,4 +1,5 @@
 import flet as ft
+from typing import Callable, Any
 
 
 class Designer():
@@ -111,7 +112,7 @@ class ButtonIcon(ft.Container):
             width=size,
             height=size,  
         )
-        
+
 class ProductCard(ft.Container):
     def __init__(self, p_id : int, title:str="title", price:str="price", desc : str = "desc"):
         self.p_id = p_id
@@ -158,7 +159,18 @@ class ProductCard(ft.Container):
         self.page.go("/product")
         
 class SearchRow(ft.Container):
-    def __init__(self):
+    def __init__(self, on_click_method : Callable[[Any], None]):
+        
+        self.text_field = ft.TextField(
+                        border=ft.InputBorder.NONE,
+                        expand=True,    
+                        cursor_color=Designer.colors[4],
+                        border_color=Designer.colors[4],
+                        color=Designer.colors[4],
+                        adaptive=True,
+                        text_size=24,
+                    )
+        
         super().__init__(
             height=55,
             expand=True,
@@ -171,19 +183,15 @@ class SearchRow(ft.Container):
                         icon=ft.icons.SEARCH_OUTLINED,
                         icon_size=40,
                         icon_color=Designer.colors[4],
+                        on_click=on_click_method
                     ),
-                    ft.TextField(
-                        border=ft.InputBorder.NONE,
-                        expand=True,    
-                        cursor_color=Designer.colors[4],
-                        border_color=Designer.colors[4],
-                        color=Designer.colors[4],
-                        adaptive=True,
-                        text_size=24,
-                    ),
+                    self.text_field                    
                 ]
             )
         )
+    
+    def return_text_field(self):
+        return self.text_field.value
 
 class OrderRow(ft.Row):
     
@@ -248,4 +256,10 @@ class massege_row(ft.Row):
                     height=40,
                 )
             ]
-        )        
+        )     
+        
+class dialog(ft.AlertDialog):
+    def __init__(self,text:str=""):
+        super().__init__(
+            title=ft.Text(text),
+        )   
