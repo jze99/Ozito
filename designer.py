@@ -114,12 +114,13 @@ class ButtonIcon(ft.Container):
         )
 
 class ProductCard(ft.Container):
-    def __init__(self, p_id : int, title:str="title", price:str="price", desc : str = "desc", category : str = "cat"):
+    def __init__(self, p_id : int, title:str="title", price:str="price", desc : str = "desc", category : str = "cat", c_id : int = 0):
         self.p_id = p_id
         self.title = title
         self.price = price
         self.desc = desc
         self.category = category
+        self.c_id = c_id
         super().__init__(
             
             on_click=self.go_to_product_card,
@@ -139,7 +140,7 @@ class ProductCard(ft.Container):
                                 bgcolor="#923232",
                                 height=160,
                                 width=170,
-                                image=ft.DecorationImage(src=f"http://31.31.196.6:8000/ozito/get_image?file_name={self.p_id}.png"),
+                                image=ft.DecorationImage(src=f"http://31.31.196.6:8000/ozito/get_image?file_name={self.c_id}{self.p_id}.png"),
                             ),
                         ]
                     ),
@@ -157,6 +158,8 @@ class ProductCard(ft.Container):
         from page.product_card import product_card
         
         product_card.name_page = self.title
+        product_card.product_id = self.p_id
+        product_card.creator_id = self.c_id
         product_card.price_page = self.price
         product_card.Description_page = self.desc
         product_card.Categorial_page = self.category

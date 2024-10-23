@@ -5,6 +5,8 @@ import requests
 import json
 
 class product_card():
+    product_id = 0
+    creator_id = 0
     name_page = "order"
     price_page = 0
     Categorial_page = ""
@@ -48,7 +50,8 @@ class product_card():
                                     height=200,
                                     width=200,
                                     border_radius=ft.border_radius.all(10),
-                                    bgcolor=Designer.colors[0]
+                                    bgcolor=Designer.colors[0],
+                                    image=ft.DecorationImage(src=f"http://31.31.196.6:8000/ozito/get_image?file_name={product_card.product_id}{product_card.creator_id}.png")
                                 ),
                                 ft.Row(
                                     controls=[

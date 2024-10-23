@@ -62,9 +62,9 @@ class search_main():
         for p in prod_js["data"]:
             if p["status"] == "Выставлен" and p["creator_id"] != udc.id:
                 if temp == "":
-                    prods.append(ProductCard(p["product_id"], p["product_name"], p["price"], p["product_description"], p["category"]))
+                    prods.append(ProductCard(p["product_id"], p["product_name"], p["price"], p["product_description"], p["category"], p["creator_id"]))
                 elif temp in p["product_name"]:
-                    prods.append(ProductCard(p["product_id"], p["product_name"], p["price"], p["product_description"], p["category"]))
+                    prods.append(ProductCard(p["product_id"], p["product_name"], p["price"], p["product_description"], p["category"], p["creator_id"]))
         return prods
         
     def update_pages(self,e):

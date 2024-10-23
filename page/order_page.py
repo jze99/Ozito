@@ -130,8 +130,8 @@ class order_page():
                     self.load_images()
                     r = requests.put("http://31.31.196.6:8000/ozito/update_product?id="+str(self.p_id)+
                             "&product_name="+self.name_order.value+"&product_description="+
-                            self.Description_order.value+"&price="+self.price_order.value+"&creator_id="+str(self.c_id)
-                            +"&status=%D0%92%D1%8B%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD&category="+self.Categorial_order)
+                            self.Description_order.value+"&price="+str(self.price_order.value)+"&creator_id="+str(self.c_id)
+                            +"&status=%D0%92%D1%8B%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD&category="+self.Categorial_order.value)
                     self.page.go("/my_orders")
                 else:
                     self.page.open(dialog(text="Price must consist of digits."))
