@@ -121,6 +121,7 @@ class ProductCard(ft.Container):
         self.desc = desc
         self.category = category
         super().__init__(
+            
             on_click=self.go_to_product_card,
             bgcolor=Designer.colors[3],
             content=ft.Column(
@@ -138,6 +139,7 @@ class ProductCard(ft.Container):
                                 bgcolor="#923232",
                                 height=160,
                                 width=170,
+                                image=ft.DecorationImage(src=f"http://31.31.196.6:8000/ozito/get_image?file_name={self.p_id}.png"),
                             ),
                         ]
                     ),

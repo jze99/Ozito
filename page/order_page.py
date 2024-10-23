@@ -159,7 +159,7 @@ class order_page():
 
         # Открываем файл и загружаем его на сервер
         with open(self.path_images, 'rb') as image_file:
-            ftp.storbinary('STOR ' + f"{remote_image_path}{self.c_id}", image_file)  # Замените 'картинка.jpg' на нужное имя файла на сервере
+            ftp.storbinary('STOR ' + f"{remote_image_path}{self.c_id}{self.p_id}", image_file)  # Замените 'картинка.jpg' на нужное имя файла на сервере
 
         # Закрываем соединение
         ftp.quit()
