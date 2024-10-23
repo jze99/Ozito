@@ -1,5 +1,8 @@
 from typing import Annotated
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, UploadFile, File
+from fastapi.responses import FileResponse
+from pathlib import Path
+from secrets import token_hex
 from repository import UserRepository, ProductRepository
 from schemas import *
 
@@ -48,3 +51,10 @@ async def update_product(id : int, product : Annotated[SProductAdd, Depends()]):
 async def delete_product(id : int):
     result = await ProductRepository.delete_product(id)
     return result
+
+@router.get("/get_image")
+async def get_image(file_name : str):
+    image_path = Path("" + file_name)
+    if not image_path.is_file():
+        return {"error": "Image not found on the server"}
+    return FileResponse(image_path)
