@@ -265,3 +265,9 @@ class dialog(ft.AlertDialog):
         super().__init__(
             title=ft.Text(text),
         )   
+        
+class file_picer(ft.FilePicker):
+    def __init__(self, on_result:Callable[[Any], None]):
+        super().__init__(
+            on_result=on_result
+        )

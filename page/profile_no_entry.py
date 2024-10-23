@@ -8,7 +8,7 @@ class profile_no_entry():
         self.page_view=ft.Column(
             controls=[
                 ft.Row(
-                    height=30
+                    height=30,
                 ),
                 ft.Row(
                     controls=[
@@ -18,9 +18,9 @@ class profile_no_entry():
                             size=28,
                             color=Designer.colors[4],
                             text_align=ft.TextAlign.CENTER,
-                            weight=ft.FontWeight.W_500
+                            weight=ft.FontWeight.W_500,
                         ),
-                    ]
+                    ],
                 ),
                 ft.Row(
                     alignment=ft.MainAxisAlignment.CENTER,
@@ -48,7 +48,7 @@ class profile_no_entry():
                             size=24,
                             color=Designer.colors[4],
                             text_align=ft.TextAlign.CENTER,
-                            weight=ft.FontWeight.W_400
+                            weight=ft.FontWeight.W_400,
                         ),
                     ]
                 ),
@@ -58,7 +58,7 @@ class profile_no_entry():
                 ft.Row(
                     alignment=ft.MainAxisAlignment.CENTER,
                     controls=[
-                        ButtonBox(text="Log in", metod=self.go_to_enter)
+                        ButtonBox(text="Log in", metod=self.go_to_enter),
                     ]
                 ),
                 ft.Row(
