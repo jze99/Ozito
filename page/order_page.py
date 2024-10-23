@@ -111,7 +111,7 @@ class order_page():
             r = requests.delete("http://31.31.196.6:8000/ozito/delete_product?id="+str(self.p_id))
             self.page.go("/my_orders")
         else:
-            self.page.open(dialog(text="Order can't be deleted since it was bought."))
+            self.page.open(dialog(text="Order can't be deleted since it was already bought."))
         
     def save_product(self, e):
         if self.status_order ==  "Выставлен":
@@ -127,7 +127,7 @@ class order_page():
             else:
                 self.page.open(dialog(text="All fields must be filled."))
         else:
-            self.page.open(dialog(text="Order can't be updated since it was bought."))
+            self.page.open(dialog(text="Order can't be updated since it was already bought."))
     
     def go_to_orders(self,e):
         self.page.go("/my_orders")
