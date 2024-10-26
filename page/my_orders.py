@@ -11,7 +11,8 @@ class my_order():
             expand=True,
             scroll=ft.ScrollMode.ADAPTIVE,
             alignment=ft.MainAxisAlignment.START,
-            controls= self.load_user_products()
+            controls= self.load_user_products(),
+            
         )
         self.page_view=ft.Column(
             expand=True,

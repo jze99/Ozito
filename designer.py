@@ -225,7 +225,8 @@ class OrderRow(ft.Row):
                                 width=100,
                                 bgcolor=Designer.colors[0],
                                 margin=ft.margin.all(10),
-                                border_radius=ft.border_radius.all(10)
+                                border_radius=ft.border_radius.all(10),
+                                image=ft.DecorationImage(src=f"http://31.31.196.6:8000/ozito/get_image?file_name={self.c_id}{self.p_id}.png")
                             ),
                             ft.Container(
                                 expand=True,
