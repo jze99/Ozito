@@ -121,7 +121,8 @@ class CategoryDropdown(ft.Dropdown):
                     ft.dropdown.Option("Instrument")
                     ],
             value=value,
-            on_change=on_change_method
+            on_change=on_change_method,
+            expand=True
         )
 
 class ProductCard(ft.Container):
@@ -151,7 +152,7 @@ class ProductCard(ft.Container):
                                 bgcolor="#923232",
                                 height=160,
                                 width=170,
-                                image=ft.DecorationImage(src=f"http://31.31.196.6:8000/ozito/get_image?file_name={self.c_id}{self.p_id}.png"),
+                                image=ft.DecorationImage(src=f"http://31.31.196.6:8000/ozito/get_image?file_name="+str(self.c_id)+str(self.p_id)+".png"),
                             ),
                         ]
                     ),
