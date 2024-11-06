@@ -49,9 +49,12 @@ class UserRepository:
                        
 class ProductRepository:
     @classmethod
-    async def select_all(cls) -> SProduct:
+    async def select_all(cls, category : str) -> SProduct:
         async with new_session() as session:
-            query = select(ProductOrm).options(joinedload(ProductOrm.creator)).options(joinedload(ProductOrm.buyer))
+            if category == "All":
+                query = select(ProductOrm).options(joinedload(ProductOrm.creator)).options(joinedload(ProductOrm.buyer))
+            else:
+                query = select(ProductOrm).where(ProductOrm.category == category).options(joinedload(ProductOrm.creator)).options(joinedload(ProductOrm.buyer))
             result = await session.execute(query)
             products_models = result.scalars().all()
             return products_models

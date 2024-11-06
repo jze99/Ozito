@@ -34,8 +34,8 @@ async def update_user(id : int, user : Annotated[SUserAdd, Depends()]):
     
 #////////  Products
 @router.get("/select_all_products")
-async def select_all_products():
-    users = await ProductRepository.select_all()
+async def select_all_products(category : str = "All"):
+    users = await ProductRepository.select_all(category=category)
     return {"data" : users}
 
 @router.post("/create_product")
