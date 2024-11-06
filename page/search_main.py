@@ -1,5 +1,5 @@
 import flet as ft
-from designer import ButtonIcon, Designer, ProductCard,SearchRow
+from designer import ButtonIcon, Designer, ProductCard, SearchRow, CategoryDropdown
 import requests
 import json
 from user_data import user_data_class as udc
@@ -9,6 +9,7 @@ class search_main():
         self.page = page
         self.search = SearchRow(on_click_method=self.update_pages)
         self.temp=[]
+        self.category_drop = CategoryDropdown(on_change_method=self.update_pages, value="All")
         self.column_shop=ft.Column(
                             expand=True,
                             scroll=ft.ScrollMode.ADAPTIVE,
@@ -23,9 +24,8 @@ class search_main():
                 ft.Row(
                     controls=[self.search]
                 ),
-                ft.Dropdown(width=100, options=[
-                    ft.dropdown.Option("Furniture")
-                    ],
+                ft.Row(
+                    controls=[self.category_drop]
                 ),
                 ft.Row(
                     expand=True,
@@ -59,8 +59,8 @@ class search_main():
             ]
         )
         
-    def load_prods(self):
-        r = requests.get("http://31.31.196.6:8000/ozito/select_all_products")
+    def load_prods(self):        
+        r = requests.get("http://31.31.196.6:8000/ozito/select_all_products?category="+self.category_drop.value)
         prod_js = json.loads(r.content)
         prods = []
         temp = self.search.return_text_field()

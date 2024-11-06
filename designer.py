@@ -113,6 +113,17 @@ class ButtonIcon(ft.Container):
             height=size,  
         )
 
+class CategoryDropdown(ft.Dropdown):
+    def __init__(self, on_change_method : Callable[[Any], None] = None, value : str = ""):
+        super().__init__(
+            options=[ft.dropdown.Option("All"),
+                    ft.dropdown.Option("Furniture"),
+                    ft.dropdown.Option("Instrument")
+                    ],
+            value=value,
+            on_change=on_change_method
+        )
+
 class ProductCard(ft.Container):
     def __init__(self, p_id : int, title:str="title", price:str="price", desc : str = "desc", category : str = "cat", c_id : int = 0):
         self.p_id = p_id
