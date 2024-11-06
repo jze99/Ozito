@@ -9,7 +9,10 @@ class create_order_page():
         self.page = page
         self.name_order = TextField()
         self.price_order = TextField()
-        self.Categorial_order = TextField()
+        self.Categorial_order = ft.Dropdown(width=150, options=[
+            ft.dropdown.Option("Furniture"),
+            ft.dropdown.Option("Instrument")
+            ])
         self.Description_order = TextField()
         self.file_picer = file_picer(on_result=self.file_picer_result)
         self.images = ft.Container(
@@ -110,7 +113,7 @@ class create_order_page():
         p_name = self.name_order.value
         p_desc = self.Description_order.value
         p_price = self.price_order.value
-        p_category = self.Categorial_order.value
+        p_category = str(self.Categorial_order.value)
         c_id = str(udc.id)
         
         if p_name != "" and p_name != "" and p_name != "" and p_name != "":

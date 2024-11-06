@@ -17,7 +17,7 @@ class order_page():
         self.c_id = order_page.c_id
         self.name_order = TextField(value=order_page.name_page)
         self.price_order = TextField(value=order_page.price_page)
-        self.Categorial_order = TextField(value=order_page.Categorial_page)
+        self.Categorial_order = ft.Dropdown(width=150, options=[ft.dropdown.Option("Furniture"), ft.dropdown.Option("Instrument")])
         self.Description_order = TextField(value=order_page.Description_page)
         self.status_order = order_page.status_page
         self.file_picer = file_picer(on_result=self.file_picer_result)
@@ -132,7 +132,7 @@ class order_page():
                     r = requests.put("http://31.31.196.6:8000/ozito/update_product?id="+str(self.p_id)+
                             "&product_name="+self.name_order.value+"&product_description="+
                             self.Description_order.value+"&price="+str(self.price_order.value)+"&creator_id="+str(self.c_id)
-                            +"&status=%D0%92%D1%8B%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD&category="+self.Categorial_order.value)
+                            +"&status=%D0%92%D1%8B%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD&category="+str(self.Categorial_order.value))
                     self.page.go("/my_orders")
                 else:
                     self.page.open(dialog(text="Price must consist of digits."))

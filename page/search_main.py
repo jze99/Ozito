@@ -23,6 +23,10 @@ class search_main():
                 ft.Row(
                     controls=[self.search]
                 ),
+                ft.Dropdown(width=100, options=[
+                    ft.dropdown.Option("Furniture")
+                    ],
+                ),
                 ft.Row(
                     expand=True,
                     alignment=ft.MainAxisAlignment.CENTER,
@@ -54,6 +58,7 @@ class search_main():
                 ),
             ]
         )
+        
     def load_prods(self):
         r = requests.get("http://31.31.196.6:8000/ozito/select_all_products")
         prod_js = json.loads(r.content)
