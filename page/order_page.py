@@ -17,7 +17,13 @@ class order_page():
         self.c_id = order_page.c_id
         self.name_order = TextField(value=order_page.name_page)
         self.price_order = TextField(value=order_page.price_page)
-        self.Categorial_order = ft.Dropdown(width=150, options=[ft.dropdown.Option("Furniture"), ft.dropdown.Option("Instrument")])
+        self.Categorial_order = ft.Dropdown(width=150, options=[ft.dropdown.Option("Furniture"),
+                                                                ft.dropdown.Option("Instrument"),
+                                                                ft.dropdown.Option("Electronics"),
+                                                                ft.dropdown.Option("Clothes"),
+                                                                ft.dropdown.Option("Hobby")
+                                                                ],
+                                            value=self.Categorial_page)
         self.Description_order = TextField(value=order_page.Description_page)
         self.status_order = order_page.status_page
         self.file_picer = file_picer(on_result=self.file_picer_result)

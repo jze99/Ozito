@@ -11,7 +11,10 @@ class create_order_page():
         self.price_order = TextField()
         self.Categorial_order = ft.Dropdown(width=150, options=[
             ft.dropdown.Option("Furniture"),
-            ft.dropdown.Option("Instrument")
+            ft.dropdown.Option("Instrument"),
+            ft.dropdown.Option("Electronics"),
+            ft.dropdown.Option("Clothes"),
+            ft.dropdown.Option("Hobby")
             ])
         self.Description_order = TextField()
         self.file_picer = file_picer(on_result=self.file_picer_result)

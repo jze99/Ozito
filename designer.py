@@ -118,7 +118,10 @@ class CategoryDropdown(ft.Dropdown):
         super().__init__(
             options=[ft.dropdown.Option("All"),
                     ft.dropdown.Option("Furniture"),
-                    ft.dropdown.Option("Instrument")
+                    ft.dropdown.Option("Instrument"),
+                    ft.dropdown.Option("Electronics"),
+                    ft.dropdown.Option("Clothes"),
+                    ft.dropdown.Option("Hobby")
                     ],
             value=value,
             on_change=on_change_method,
