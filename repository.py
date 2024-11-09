@@ -76,7 +76,8 @@ class ProductRepository:
                 price = data.price,
                 creator_id = data.creator_id,
                 status = data.status,
-                buyer_id = data.buyer_id
+                buyer_id = data.buyer_id,
+                category = data.category
                 ).where(ProductOrm.product_id == prod_id)
             await session.execute(query)
             await session.commit()
