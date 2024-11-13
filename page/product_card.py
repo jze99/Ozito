@@ -77,21 +77,22 @@ class product_card():
                 ),
                 ft.Row(
                     controls=[
-                        ft.Container(
-                            on_click=self.go_to_orders,
-                            alignment=ft.alignment.center,
-                            height=80,
-                            bgcolor=Designer.colors[0],
-                            expand=True,
-                            content=ft.Text(
-                                value="write to the seller",
-                                size=28,
-                                color=Designer.colors[4]
-                            )
-                        )    
+                        ft.Text(value="Phone number:", size=22,color=Designer.colors[4]),
+                        ft.Text(value=self.find_creator_phone, size=22,color=Designer.colors[4]),    
                     ]
                 )
             ]
-        )    
+        )
+    def find_creator_phone(self):
+        r = requests.get("http://31.31.196.6:8000/ozito/select_all_users")
+        users = json.loads(r.content)
+
+        for user in users["data"]:
+            if user["id"] == self.creator_id:
+                return user["phone_number"]
+            else:
+                return "89999999999"
+    
+        
     def go_to_orders(self,e):
         self.page.go("/search")

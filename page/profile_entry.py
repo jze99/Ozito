@@ -252,7 +252,7 @@ class profile():
         r = requests.get("http://31.31.196.6:8000/ozito/select_all_products")
         prod_js = r.json()
         for p in prod_js["data"]:
-            if p["creator_id"] == user_data_class.id:
+            if p["creator_id"] == user_data_class.id and p["status"] == "Выставлен":
                 count += 1
         return count
         

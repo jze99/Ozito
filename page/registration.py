@@ -214,7 +214,7 @@ class Registration:
                                              "&login="+log_temp+"&password="+pass_temp+"&phone_number="+phone_temp+
                                              "&region="+region_temp+"&is_active=true&role=user")
                         
-                        temp_js = temp.json()
+                        temp_js = json.loads(temp.content)
                         
                         udc.id = temp_js['task_id']['data']['id']
                         udc.name = temp_js['task_id']['data']['login']
