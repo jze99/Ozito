@@ -59,13 +59,14 @@ class search_main():
             ]
         )
         
+    #and p["creator_id"] != udc.id    
     def load_prods(self):        
         r = requests.get("http://31.31.196.6:8000/ozito/select_all_products?category="+self.category_drop.value)
         prod_js = json.loads(r.content)
         prods = []
         temp = self.search.return_text_field()
         for p in prod_js["data"]:
-            if p["status"] == "Выставлен" and p["creator_id"] != udc.id:
+            if p["status"] == "Выставлен":
                 if temp == "":
                     prods.append(ProductCard(p["product_id"], p["product_name"], p["price"], p["product_description"], p["category"], p["creator_id"]))
                 elif temp in p["product_name"]:

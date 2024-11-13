@@ -76,9 +76,10 @@ class product_card():
                     ]
                 ),
                 ft.Row(
+                    vertical_alignment=ft.CrossAxisAlignment.CENTER,
                     controls=[
-                        ft.Text(value="Phone number:", size=22,color=Designer.colors[4]),
-                        ft.Text(value=self.find_creator_phone, size=22,color=Designer.colors[4]),    
+                        ft.Text(value="Creator's phone number:", size=22,color=Designer.colors[4]),
+                        ft.Text(value=self.find_creator_phone(), size=22,color=Designer.colors[4]),    
                     ]
                 )
             ]
@@ -90,7 +91,7 @@ class product_card():
         if users is not None:
             for user in users["data"]:
                 if user["id"] == self.creator_id:
-                    return user["phone_number"]
+                    return str(user["phone_number"])
         else:
             return "89999999999"        
     
