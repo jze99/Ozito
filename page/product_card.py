@@ -87,11 +87,12 @@ class product_card():
         r = requests.get("http://31.31.196.6:8000/ozito/select_all_users")
         users = json.loads(r.content)
 
-        for user in users["data"]:
-            if user["id"] == self.creator_id:
-                return user["phone_number"]
-            else:
-                return "89999999999"
+        if users is not None:
+            for user in users["data"]:
+                if user["id"] == self.creator_id:
+                    return user["phone_number"]
+        else:
+            return "89999999999"        
     
         
     def go_to_orders(self,e):
