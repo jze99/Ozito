@@ -147,7 +147,7 @@ class create_order_page():
         ftp_user = 'u2806602'     # ваше имя пользователя
         ftp_pass = 'wE8aC4bF4uiZ7vL8'      # ваш пароль
         # Путь, куда вы хотите загрузить изображение на сервере
-        remote_image_path = 'www/ozito.ru/images/'
+        remote_image_path = 'www/ozito.ru/images_server/'
         ftp = FTP(ftp_host)
         ftp.login(ftp_user, ftp_pass)
 
